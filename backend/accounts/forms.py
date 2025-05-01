@@ -2,10 +2,14 @@ from django.forms import ValidationError
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from .models import User
+from .utils import send_verification_email
 
 
 class LoginForm(AuthenticationForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': 'Enter your username'})
+        self.fields['password'].widget.attrs.update({'placeholder': 'Enter your password'})
 
 
 class RegisterForm(UserCreationForm):
@@ -15,6 +19,13 @@ class RegisterForm(UserCreationForm):
             'email', 'username', 'password1', 'password2',
         )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'placeholder': 'Enter your email address'})
+        self.fields['username'].widget.attrs.update({'placeholder': 'Choose a username'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Create a password'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm your password'})
+
     def save(self, commit=True):
         user = super().save(commit=False)
 
@@ -22,7 +33,7 @@ class RegisterForm(UserCreationForm):
 
         if commit:
             user.save()
-            # send verify email
+            send_verification_email(user)
 
         return user
     

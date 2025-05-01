@@ -12,6 +12,19 @@ DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = []
 
+DOMAIN = config('DOMAIN', cast=str, default='http://127.0.0.1:8000')
+
+
+# Email config
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', cast=str, default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', cast=str, default='587')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=True)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool, default=False)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', cast=str)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', cast=str)
+
 
 # Application definition
 
@@ -24,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+
+    'widget_tweaks',
 
     # apps
 
@@ -49,7 +64,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,6 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Auth config
 
 AUTH_USER_MODEL = 'accounts.User'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 # Internationalization
