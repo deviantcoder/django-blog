@@ -10,11 +10,11 @@ from .models import User
 
 
 def login_user(request):
-    # if request.user.is_authenticated:
-    #     return redirect('/')
+    if request.user.is_authenticated:
+        return redirect('/')
 
     if request.method == 'POST':
-        form = LoginForm(data=request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             if user is not None:
@@ -22,7 +22,13 @@ def login_user(request):
                 messages.success(request, 'Signed In')
                 return redirect('accounts:login')
         else:
-            pass
+            if '__all__' in form.errors:
+                messages.warning(request, f'Invalid username or password')
+            else:
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.warning(request, f'{field.capitalize()}: {error}')
+            return render(request, 'accounts/login.html', {'form': form})
     else:
         form = LoginForm()
 
@@ -49,6 +55,11 @@ def register_user(request):
         if form.is_valid():
             form.save()
             return render(request, 'emails/verification_sent.html')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.warning(request, f'{field.capitalize()}: {error}')
+            return render(request, 'accounts/register.html', {'form': form})
     else:
         form = RegisterForm()
 
