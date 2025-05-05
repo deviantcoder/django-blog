@@ -5,6 +5,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+    Represents a custom user model extending Django's AbstractUser.
+    """
+
     email_verified = models.BooleanField(default=False)
 
     created = models.DateTimeField(auto_now_add=True)

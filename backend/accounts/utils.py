@@ -7,6 +7,15 @@ from django.core.mail import send_mail
 
 
 def send_verification_email(user):
+    """
+    Sends an email verification link to the specified user.
+
+    This function generates a unique verification URL for the user by encoding
+    their primary key (UID) and creating a token using Django's 
+    PasswordResetTokenGenerator. The verification URL is then embedded in an 
+    email template and sent to the user's email address.
+    """
+
     token_generator = PasswordResetTokenGenerator()
 
     uid = urlsafe_base64_encode(force_bytes(user.pk))

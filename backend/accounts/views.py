@@ -10,8 +10,8 @@ from .models import User
 
 
 def login_user(request):
-    if request.user.is_authenticated:
-        return redirect('/')
+    # if request.user.is_authenticated:
+    #     return redirect('/')
 
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
@@ -47,8 +47,8 @@ def logout_user(request):
 
 
 def register_user(request):
-    if request.user.is_authenticated:
-        return redirect('accounts:login')
+    # if request.user.is_authenticated:
+    #     return redirect('accounts:login')
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)

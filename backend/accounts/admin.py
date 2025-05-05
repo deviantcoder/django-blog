@@ -28,6 +28,9 @@ class UserAdmin(UserAdmin):
         (None, {'fields': ('email_verified',)}),
     )
 
-    add_fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('email_verified',)}),
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2', 'email_verified'),
+        }),
     )

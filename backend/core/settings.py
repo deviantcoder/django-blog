@@ -173,6 +173,8 @@ STATIC_ROOT = 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+MAX_IMAGE_SIZE = 20
+
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

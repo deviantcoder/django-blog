@@ -6,6 +6,10 @@ from .utils import send_verification_email
 
 
 class LoginForm(AuthenticationForm):
+    """
+    Custom form that extends Django's built-in AuthenticationForm.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'placeholder': 'Enter your username'})
@@ -13,6 +17,10 @@ class LoginForm(AuthenticationForm):
 
 
 class RegisterForm(UserCreationForm):
+    """
+    Custom user registration form that extends Django's UserCreationForm.
+    """
+
     class Meta:
         model = User
         fields = (
