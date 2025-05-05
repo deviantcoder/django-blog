@@ -21,7 +21,7 @@ def send_verification_email(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = token_generator.make_token(user)
     domain = settings.DOMAIN
-    verify_url = f'{domain}/accounts/verify-email/{uid}/{token}'
+    verify_url = f'{domain}/account/verify-email/{uid}/{token}'
 
     subject = 'Email Verification'
     message = render_to_string(
