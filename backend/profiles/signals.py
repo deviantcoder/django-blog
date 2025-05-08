@@ -4,6 +4,7 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save, post_delete
+from django.conf import settings
 from django.dispatch import receiver
 
 from .models import Profile
@@ -25,8 +26,8 @@ def create_profile(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=Profile)
 def delete_profile_media_files(sender, instance, **kwargs):
     try:
-        path = f'media/profiles/{str(instance.pk)[:8]}'
+        path = os.path.join(settings.MEDIA_ROOT, 'profiles', instance.pk.__str__()[:8])
         if os.path.exists(path):
             shutil.rmtree(path)
     except Exception as e:
-        logging.warning(f'Media deletion dailed for: {instance.user.username}', level='warning')
+        logging.warning(f'Media deletion dailed for: {instance.user.username}')
