@@ -50,8 +50,8 @@ SOCIAL_AUTH_GITHUB_SECRET = config('GITHUB_CLIENT_SECRET', cast=str)
 SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
 
 # Redirects
-LOGIN_REDIRECT_URL = 'accounts:login'  # <<<<<<<<<<<<<<< change
-LOGOUT_REDIRECT_URL = 'accounts:login' # <<<<<<<<<<<<<<< change
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Application definition
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     # apps
     'accounts.apps.AccountsConfig',
     'profiles.apps.ProfilesConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [

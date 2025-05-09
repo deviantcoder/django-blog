@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Feed
+{% endblock title %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+    <div id="welcome-banner" class="alert alert-info">
+        Welcome! <a href="{% url 'accounts:login' %}">Sign In</a> to save posts, comment and much more.
+        <button class="btn-close float-end" onclick="document.getElementById('welcome-banner').style.display='none';"></button>
+    </div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <h1>Posts Here</h1>
+    </div>
+</div>
+{% endblock content %}

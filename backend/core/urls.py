@@ -8,8 +8,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('accounts.urls')),
     path('profile/', include('profiles.urls')),
-
     path('social/', include('social_django.urls', namespace='social')),
+
+    path('', include('blog.urls')),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(
         template_name='password_reset/reset_password.html'

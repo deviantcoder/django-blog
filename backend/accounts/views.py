@@ -10,8 +10,8 @@ from .models import User
 
 
 def login_user(request):
-    # if request.user.is_authenticated:
-    #     return redirect('/')
+    if request.user.is_authenticated:
+        return redirect('/')
 
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
@@ -20,7 +20,7 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Signed In')
-                return redirect('accounts:login')
+                return redirect('/')
         else:
             if '__all__' in form.errors:
                 messages.warning(request, f'Invalid username or password')
@@ -47,8 +47,8 @@ def logout_user(request):
 
 
 def register_user(request):
-    # if request.user.is_authenticated:
-    #     return redirect('accounts:login')
+    if request.user.is_authenticated:
+        return redirect('accounts:login')
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -96,7 +96,7 @@ def verify_email(request, uidb64, token):
 
         login(request, user)
         messages.success(request, 'Signed Up')
-        return redirect('accounts:login')
+        return redirect('/')
     elif user and not user.email_verified:
         user.delete()
 

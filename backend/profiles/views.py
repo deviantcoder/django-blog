@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .forms import ProfileForm
+
+
+def edit_profile(request):
+    context = {
+        'form': ProfileForm(),
+    }
+
+    return render(request, 'profiles/edit_profile.html', context)
