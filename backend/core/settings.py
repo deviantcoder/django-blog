@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', cast=str)
 
 DEBUG = config('DEBUG', cast=bool, default=True)
+# export DJANGO_RUNSERVER_HIDE_WARNING=true
 
 ALLOWED_HOSTS = []
 
