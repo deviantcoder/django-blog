@@ -1,3 +1,5 @@
+import re
+
 from django.forms import ValidationError
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
@@ -55,6 +57,11 @@ class RegisterForm(UserCreationForm):
     
     def clean_username(self):
         username = self.cleaned_data.get('username')
+
+        if not re.match(r'^[a-zA-Z0-9_]+$', username):
+            raise ValidationError(
+                'Username can only contain English letters, numbers and underscores'
+            )
 
         if User.objects.filter(username=username).exists():
             raise ValidationError('Username is already taken')

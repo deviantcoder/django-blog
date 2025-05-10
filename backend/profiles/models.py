@@ -41,7 +41,7 @@ class Profile(models.Model):
         upload_to=upload_to, null=True, blank=True,
         validators=[
             FileExtensionValidator(allowed_extensions=ALLOWED_EXTENSIONS),
-            ImageSizeValidator(),
+            ImageSizeValidator(max_size_mb=20),
         ]
     )
 

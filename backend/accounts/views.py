@@ -56,9 +56,9 @@ def register_user(request):
             form.save()
             return render(request, 'emails/verification_sent.html')
         else:
-            for field, errors in form.errors.items():
+            for errors in form.errors.values():
                 for error in errors:
-                    messages.warning(request, f'{field.capitalize()}: {error}')
+                    messages.warning(request, error.capitalize())
             return render(request, 'accounts/register.html', {'form': form})
     else:
         form = RegisterForm()
